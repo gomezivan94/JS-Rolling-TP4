@@ -110,7 +110,7 @@ rectangulo1.perimetro();
 
 // EJERCICIO 4
 
-class Producto {
+/* class Producto {
     constructor(codigo, nombre, precio){
         this._codigo = codigo;
         this._nombre = nombre;
@@ -134,12 +134,66 @@ const producto3 = new Producto(170794,"ECU", 500000)
 
 const productos = [producto1, producto2, producto3];
 
-productos.forEach(producto => producto.imprimirDatos());
+productos.forEach(producto => producto.imprimirDatos()); */
 
 // ----------------------------------------------------------------------------------------
 
 // EJERCICIO 5
 
 class Persona {
-    
+    constructor(nombre, edad, dni, sexo, peso, altura, anio){
+        this._nombre = nombre;
+        this._edad = edad;
+        this._dni = dni;
+        this._sexo = sexo;
+        this._peso = peso;
+        this._altura = altura;
+        this._anio = anio;
+    }
+
+    mostrarGeneracion(){
+        switch(true){
+            case this._anio <= 1948: document.write(`Año de nacimiento: ${this._anio} <br> Pertenece a "Silent Generation" y el rasgo caracteristico es Austeridad <hr>`)
+            break;
+            case this._anio <= 1968: document.write(`Año de nacimiento: ${this._anio} <br> Pertenece a Generacion "Baby Boom" y el rasgo caracteristico es Ambicion <hr>`)
+            break;
+            case this._anio <= 1980: document.write(`Año de nacimiento: ${this._anio} <br> Pertenece a Generacion "X" y el rasgo caracteristico es Obsesion por el exito <hr>`)
+            break;
+            case this._anio <= 1993: document.write(`Año de nacimiento: ${this._anio} <br> Pertenece a Generacion "Y" y el rasgo caracteristico es Frustracion <hr>`)
+            break;
+            case this._anio <= 2010: document.write(`Año de nacimiento: ${this._anio} <br> Pertenece a Generacion "Z" y el rasgo caracteristico es Irreverencia <hr>`)
+            break;
+            default: document.write("Fecha invalida")
+            break; 
+        }
+    }
+
+    esMayorDeEdad(){
+        return this._edad >= 18 ? document.write("Es mayor de edad <hr>") : document.write("Es menor de edad <hr>")
+    }
+
+    mostrarDatos(){
+        return document.write(`
+            
+            Nombre: ${this._nombre} <br>
+            Edad: ${this._edad} <br>
+            DNI: ${this._dni} <br>
+            Sexo: ${this._sexo} <br>
+            Peso: ${this._peso}kg <br>
+            altura: ${this._altura}cm <br>
+            Año de Nacimiento: ${this._anio} <hr>
+        `)
+    }
+
+    generaDni(){
+        return document.write(`DNI Aleatorio: ${Math.floor(Math.random() * 99999999)} <hr> `)
+    }
+
 }
+
+let persona1 = new Persona("Ivan",17,38030648,"M",63,175,1992)
+
+persona1.mostrarGeneracion()
+persona1.esMayorDeEdad()
+persona1.mostrarDatos()
+persona1.generaDni()
