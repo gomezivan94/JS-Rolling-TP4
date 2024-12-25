@@ -104,13 +104,13 @@ rectangulo1.alto = 500;
 rectangulo1.ancho = 10;
 
 rectangulo1.area();
-rectangulo1.perimetro();
- */
+rectangulo1.perimetro(); */
+
 // ----------------------------------------------------------------------------------------
 
 // EJERCICIO 4
 
-/* class Producto {
+class Producto {
     constructor(codigo, nombre, precio){
         this._codigo = codigo;
         this._nombre = nombre;
@@ -134,7 +134,7 @@ const producto3 = new Producto(170794,"ECU", 500000)
 
 const productos = [producto1, producto2, producto3];
 
-productos.forEach(producto => producto.imprimirDatos()); */
+productos.forEach(producto => producto.imprimirDatos());
 
 // ----------------------------------------------------------------------------------------
 
@@ -197,3 +197,226 @@ persona1.mostrarGeneracion()
 persona1.esMayorDeEdad()
 persona1.mostrarDatos()
 persona1.generaDni()
+
+// ------------------------------------------------------------------------------------------
+
+// EJERCICIO 6
+
+class Libro {
+    // Constructor de la clase Libro
+    constructor(ISBN, titulo, autor, numPaginas) {
+    this.ISBN = ISBN;
+    this.titulo = titulo;
+    this.autor = autor;
+    this.numPaginas = numPaginas;
+    }
+
+    // Métodos getter y setter para ISBN
+    get ISBN() {
+    return this.ISBN;
+    }
+
+    set ISBN(ISBN) {
+    this.ISBN = ISBN;
+    }
+
+    // Métodos getter y setter para Título
+    get Titulo() {
+    return this.titulo;
+    }
+
+    set Titulo(titulo) {
+    this.titulo = titulo;
+    }
+
+    // Métodos getter y setter para Autor
+    get Autor() {
+    return this.autor;
+    }
+
+    set Autor(autor) {
+    this.autor = autor;
+    }
+
+    // Métodos getter y setter para Número de páginas
+    get NumPaginas() {
+    return this.numPaginas;
+    }
+
+    set NumPaginas(numPaginas) {
+    this.numPaginas = numPaginas;
+    }
+
+    // Método para mostrar la información del libro
+    mostrarLibro() {
+    console.log(`El libro ${this.titulo} con ISBN ${this.ISBN} creado por el autor ${this.autor} tiene páginas ${this.numPaginas}`);
+    }
+}
+
+
+let libro1 = new Libro('123', 'El Gran Libro', 'Juan Pérez', 300);
+let libro2 = new Libro('456', 'El Pequeño Manual', 'María García', 150);
+
+
+libro1.mostrarLibro();
+libro2.mostrarLibro();
+
+
+if (libro1.getNumPaginas() > libro2.getNumPaginas()) {
+    console.log(`${libro1.getTitulo()} tiene más páginas que ${libro2.getTitulo()}.`);
+} else if (libro1.getNumPaginas() < libro2.getNumPaginas()) {
+    console.log(`${libro2.getTitulo()} tiene más páginas que ${libro1.getTitulo()}.`);
+} else {
+    console.log(`${libro1.getTitulo()} y ${libro2.getTitulo()} tienen la misma cantidad de páginas.`);
+}
+
+// ------------------------------------------
+
+// EJERCICIO 7
+
+// Clase Contacto
+class Contacto {
+    constructor(nombre, telefono) {
+    this.nombre = nombre;
+    this.telefono = telefono;
+    }
+
+
+    esIgual(contacto) {
+    return this.nombre === contacto.nombre;
+    }
+}
+
+class Agenda {
+    constructor(tamano = 10) {
+    this.contactos = [];
+    this.tamano = tamano;
+    }
+
+
+    aniadirContacto(contacto) {
+    if (this.agendaLlena()) {
+        console.log("La agenda está llena, no se puede añadir más contactos.");
+    } else {
+        if (this.existeContacto(contacto)) {
+        console.log("Este contacto ya existe.");
+        } else {
+        this.contactos.push(contacto);
+        console.log(`Contacto ${contacto.nombre} añadido correctamente.`);
+        }
+    }
+    }
+
+    
+    existeContacto(contacto) {
+    return this.contactos.some(c => c.esIgual(contacto));
+    }
+
+
+    listarContactos() {
+    if (this.contactos.length === 0) {
+        console.log("La agenda está vacía.");
+    } else {
+        console.log("Lista de contactos:");
+        this.contactos.forEach(contacto => {
+        console.log(`Nombre: ${contacto.nombre}, Teléfono: ${contacto.telefono}`);
+        });
+    }
+    }
+
+
+    buscarContacto(nombre) {
+    const contacto = this.contactos.find(c => c.nombre === nombre);
+    if (contacto) {
+        console.log(`El contacto de ${nombre} es: ${contacto.telefono}`);
+    } else {
+        console.log(`El contacto con nombre ${nombre} no se encontró.`);
+    }
+    }
+
+
+    eliminarContacto(contacto) {
+    const indice = this.contactos.findIndex(c => c.esIgual(contacto));
+    if (indice !== -1) {
+        this.contactos.splice(indice, 1);
+        console.log(`Contacto ${contacto.nombre} eliminado.`);
+    } else {
+        console.log(`No se encontró el contacto ${contacto.nombre} para eliminar.`);
+    }
+    }
+
+    agendaLlena() {
+    return this.contactos.length >= this.tamano;
+    }
+
+
+    huecosLibres() {
+    return this.tamano - this.contactos.length;
+    }
+}
+
+
+function menu() {
+    const agenda = new Agenda();
+    let continuar = true;
+
+    while (continuar) {
+    const opcion = prompt(
+        "Seleccione una opción:\n" +
+        "1. Añadir contacto\n" +
+        "2. Listar contactos\n" +
+        "3. Buscar contacto\n" +
+        "4. Eliminar contacto\n" +
+        "5. Verificar si la agenda está llena\n" +
+        "6. Ver huecos libres\n" +
+        "7. Salir"
+    );
+
+    switch (opcion) {
+        case '1':
+        const nombre = prompt("Ingrese el nombre del contacto:");
+        const telefono = prompt("Ingrese el teléfono del contacto:");
+        const contacto = new Contacto(nombre, telefono);
+        agenda.aniadirContacto(contacto);
+        break;
+
+        case '2':
+        agenda.listarContactos();
+        break;
+
+        case '3':
+        const nombreBusqueda = prompt("Ingrese el nombre del contacto que desea buscar:");
+        agenda.buscarContacto(nombreBusqueda);
+        break;
+
+        case '4':
+        const nombreEliminar = prompt("Ingrese el nombre del contacto que desea eliminar:");
+        const contactoEliminar = new Contacto(nombreEliminar);
+        agenda.eliminarContacto(contactoEliminar);
+        break;
+
+        case '5':
+        if (agenda.agendaLlena()) {
+            console.log("La agenda está llena.");
+        } else {
+            console.log("La agenda no está llena.");
+        }
+        break;
+
+        case '6':
+        console.log(`Huecos libres en la agenda: ${agenda.huecosLibres()}`);
+        break;
+
+        case '7':
+        console.log("Saliendo del menú...");
+        continuar = false;
+        break;
+
+        default:
+        console.log("Opción no válida. Intente de nuevo.");
+    }
+    }
+}
+
+
+menu();
